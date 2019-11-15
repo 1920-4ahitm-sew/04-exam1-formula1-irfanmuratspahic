@@ -13,8 +13,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,7 +52,22 @@ public class InitBean {
      * @param racesFileName
      */
     private void readRacesFromFile(String racesFileName) {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/"+RACES_FILE_NAME)));
+            br.readLine();
+            String line;
 
+            while ((line = br.readLine()) != null) {
+                String[] row = line.split(";");
+                //[0] -> RaceNumber
+                //[1] -> country
+                //[2] -> Date
+
+
+                Race race = new Race();
+                this.em.persist(new Race(row[0], ));
+            }
+        }
 
     }
 
@@ -61,7 +79,20 @@ public class InitBean {
      * @param teamFileName
      */
     private void readTeamsAndDriversFromFile(String teamFileName) {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/"+TEAM_FILE_NAME)));
+            br.readLine();
+            String line;
 
+            while((line = br.readLine()) != null) {
+                String[] row = line.split(";");
+                //[0] -> Team
+                //[1] -> Driver1
+                //[2] -> Driver2
+
+                persistTeamAndDrivers(row[0]);
+            }
+        }
     }
 
     /**

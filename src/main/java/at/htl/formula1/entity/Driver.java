@@ -7,8 +7,10 @@ import javax.persistence.*;
  * <p>
  * The id's are  assigned by the database.
  */
+@Entity
+@Table(name = "F1_DRIVER")
 public class Driver {
-
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
