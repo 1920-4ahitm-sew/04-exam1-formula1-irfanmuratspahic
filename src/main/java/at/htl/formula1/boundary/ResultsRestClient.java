@@ -10,6 +10,9 @@ import javax.json.JsonValue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -17,16 +20,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class ResultsRestClient {
-
+    @PersistenceContext
+    EntityManager em;
 
     public static final String RESULTS_ENDPOINT = "http://vm90.htl-leonding.ac.at/results";
-    private Client client;
-    private WebTarget target;
+    private Client client = ClientBuilder.newClient();
+    private WebTarget target = client.target(RESULTS_ENDPOINT);
+    //Response response = (Response) target.request(MediaType.APPLICATION_JSON);
+    //JsonArray payload = response.readEntity(JsonArray.class);
 
     /**
      * Vom RestEndpoint werden alle Result abgeholt und in ein JsonArray gespeichert.
      * Dieses JsonArray wird an die Methode persistResult(...) übergeben
      */
+   @Transactional
+   @GET
+   @Consumes(MediaType.APPLICATION_JSON)
     public void readResultsFromEndpoint() {
 
         JsonArray payload = null;

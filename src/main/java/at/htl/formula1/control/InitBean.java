@@ -21,6 +21,7 @@ import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
@@ -58,15 +59,19 @@ public class InitBean {
             String line;
 
             while ((line = br.readLine()) != null) {
-                String[] row = line.split(";");
-                //[0] -> RaceNumber
-                //[1] -> country
-                //[2] -> Date
-
-
+               String[] row = line.split(";");
+//                //[0] -> RaceNumber
+//                //[1] -> country
+//                //[2] -> Date
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.mm.yyyy");
+//
                 Race race = new Race();
-                this.em.persist(new Race(row[0], ));
+                System.out.println(line);
+
+//                this.em.persist(row[0], );
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -84,14 +89,16 @@ public class InitBean {
             br.readLine();
             String line;
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 String[] row = line.split(";");
-                //[0] -> Team
-                //[1] -> Driver1
-                //[2] -> Driver2
+//                //[0] -> TEAM
+//                //[1] -> DRIVER1
+//                //[2] -> DRIVER2
 
-                persistTeamAndDrivers(row[0]);
+                System.out.println(line);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
