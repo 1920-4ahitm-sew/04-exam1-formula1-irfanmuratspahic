@@ -1,0 +1,15 @@
+GET http://localhost:8080/formula1/api/results?name=Lewis%20Hamilton
+
+###
+
+GET http://localhost:8080/formula1/api/results/winner/Spain
+
+###
+
+GET http://localhost:8080/formula1/api/results/raceswon?team=Ferrari
+
+###
+
+GET http://localhost:8080/formula1/api/results/all
+
+###
