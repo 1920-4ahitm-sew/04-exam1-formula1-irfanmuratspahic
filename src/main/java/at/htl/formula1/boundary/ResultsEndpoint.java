@@ -55,6 +55,13 @@ public class ResultsEndpoint {
         return Response.ok(elements).build();
     }
 
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findWinnerOfRace(@PathParam("id") long id) {
+        return null;
+    }
+
 
     // Ergänzen Sie Ihre eigenen Methoden ...
 
