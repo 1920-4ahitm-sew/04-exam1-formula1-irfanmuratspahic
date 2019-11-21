@@ -8,7 +8,17 @@ import javax.persistence.*;
  * The id's are assigned by the database.
  */
 @Entity
-
+@Table(name="F1_RESULT")
+@NamedQueries({
+        @NamedQuery(
+                name = "Result.sumPointsForDriver",
+                query = "select sum(r.points) from Result r where r.driver.name = :NAME"
+        ),
+        @NamedQuery(
+                name = "Result.sumPointsForAllDrivers",
+                query = "select r.driver.name, sum(r.points) from Result r group by r.driver.name"
+        )
+})
 public class Result {
 
     @Transient
