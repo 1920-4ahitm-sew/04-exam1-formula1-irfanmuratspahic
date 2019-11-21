@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 @ApplicationScoped
+@Transactional
 public class InitBean {
 
     private static final String TEAM_FILE_NAME = "teams.csv";
@@ -38,6 +39,7 @@ public class InitBean {
     @Inject
     ResultsRestClient client;
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
 
@@ -53,27 +55,16 @@ public class InitBean {
      * @param racesFileName
      */
     private void readRacesFromFile(String racesFileName) {
-        try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/"+RACES_FILE_NAME)));
-            br.readLine();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-               String[] row = line.split(";");
-//                //[0] -> RaceNumber
-//                //[1] -> country
-//                //[2] -> Date
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.mm.yyyy");
-//
-                Race race = new Race();
-                System.out.println(line);
-
-//                this.em.persist(row[0], );
-            }
+        URL url = Thread.currentThread().getContextClassLoader()
+                .getResource(racesFileName);
+        try (Stream<String> stream = Files.lines(Paths.get(url.getPath()), StandardCharsets.UTF_8)) {// Charset.forName("UTF-8"))) {
+            stream.skip(1)
+                    .map((String s) -> s.split(";"))
+                    .map(a -> new Race(Long.valueOf(a[0]), a[1], LocalDate.parse(a[2], dtf)))
+                    .forEach(em::merge);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -84,19 +75,12 @@ public class InitBean {
      * @param teamFileName
      */
     private void readTeamsAndDriversFromFile(String teamFileName) {
-        try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/"+TEAM_FILE_NAME)));
-            br.readLine();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                String[] row = line.split(";");
-//                //[0] -> TEAM
-//                //[1] -> DRIVER1
-//                //[2] -> DRIVER2
-
-                System.out.println(line);
-            }
+        URL url = Thread.currentThread().getContextClassLoader()
+                .getResource(teamFileName);
+        try (Stream<String> stream = Files.lines(Paths.get(url.getPath()), StandardCharsets.UTF_8)) {// Charset.forName("UTF-8"))) {
+            stream.skip(1)
+                    .map((String s) -> s.split(";"))
+                    .forEach(this::persistTeamAndDrivers);
         } catch (IOException e) {
             e.printStackTrace();
         }

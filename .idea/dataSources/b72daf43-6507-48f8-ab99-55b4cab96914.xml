@@ -17,5 +17,169 @@
     <schema id="10" parent="1" name="SYSIBM"/>
     <schema id="11" parent="1" name="SYSPROC"/>
     <schema id="12" parent="1" name="SYSSTAT"/>
+    <table id="13" parent="2" name="F1_DRIVER"/>
+    <table id="14" parent="2" name="F1_RACE"/>
+    <table id="15" parent="2" name="F1_TEAM"/>
+    <table id="16" parent="2" name="MY_VEHICLE"/>
+    <table id="17" parent="2" name="RESULT"/>
+    <column id="18" parent="13" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="19" parent="13" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="20" parent="13" name="TEAM_ID">
+      <Position>3</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="21" parent="13" name="SQL191121160935280">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="22" parent="13" name="SQL191121160935820">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TEAM_ID</ColNames>
+    </index>
+    <key id="23" parent="13" name="SQL191121160935280">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="24" parent="13" name="FKOBLT9GMJOLNL2VVXRBCHS7G2X">
+      <ColNames>TEAM_ID</ColNames>
+      <RefTableName>F1_TEAM</RefTableName>
+      <RefKeyName>SQL191121160935540</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="25" parent="14" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="14" name="COUNTRY">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="27" parent="14" name="DATE">
+      <Position>3</Position>
+      <DataType>DATE|91s</DataType>
+    </column>
+    <index id="28" parent="14" name="SQL191121160935400">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="29" parent="14" name="SQL191121160935400">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="15" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="31" parent="15" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="32" parent="15" name="SQL191121160935540">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="33" parent="15" name="SQL191121160935540">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="34" parent="16" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="35" parent="16" name="BRAND">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="36" parent="16" name="MODEL">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="37" parent="16" name="SQL191121160932350">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="38" parent="16" name="SQL191121160932350">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="39" parent="17" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="40" parent="17" name="POINTS">
+      <Position>2</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="41" parent="17" name="POSITION">
+      <Position>3</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="17" name="DRIVER_ID">
+      <Position>4</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="43" parent="17" name="RACE_ID">
+      <Position>5</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="44" parent="17" name="SQL191121160935680">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="45" parent="17" name="SQL191121160935910">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>DRIVER_ID</ColNames>
+    </index>
+    <index id="46" parent="17" name="SQL191121160936030">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>RACE_ID</ColNames>
+    </index>
+    <key id="47" parent="17" name="SQL191121160935680">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="48" parent="17" name="FK9WHQWI8T01LEHYSBH0H81ED0Y">
+      <ColNames>DRIVER_ID</ColNames>
+      <RefTableName>F1_DRIVER</RefTableName>
+      <RefKeyName>SQL191121160935280</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="49" parent="17" name="FKIVUFW6U744OOK6B8MOHD4X4GF">
+      <ColNames>RACE_ID</ColNames>
+      <RefTableName>F1_RACE</RefTableName>
+      <RefKeyName>SQL191121160935400</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
   </database-model>
 </dataSource>
