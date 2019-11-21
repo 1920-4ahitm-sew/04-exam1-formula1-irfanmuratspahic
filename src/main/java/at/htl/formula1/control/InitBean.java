@@ -13,15 +13,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
@@ -98,7 +94,19 @@ public class InitBean {
      */
 
     private void persistTeamAndDrivers(String[] line) {
-
+        Team team = null;
+        try {
+            team = em
+                    .createNamedQuery("Team.findByName", Team.class)
+                    .setParameter("NAME", line[0])
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            team = new Team(line[0]);
+            em.persist(team);
+        }
+        em.persist(new Driver(line[1], team));
+        em.persist(new Driver(line[2], team));
+    }
     }
 
 
